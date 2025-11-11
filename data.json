@@ -1,0 +1,657 @@
+{
+    "users": [
+        {
+            "id": "dcbd3a51-71e9-492f-ad0c-f72f7bcf547e",
+            "email": "admin@example.com",
+            "name": "Admin",
+            "role": "admin",
+            "status": "approved",
+            "password_hash": "scrypt:32768:8:1$6IalqLT8HTRFRl9v$2cd4af07624e8a7a678e59da50dfcf6a700e7f95b3c55512e0bb2771de049bb9c537c75f16e45b98d8f42d1cc4fa37e0c743fefefaa815cf0090b7dbe82265ed",
+            "profile": {
+                "custom": {},
+                "basic": {
+                    "company_name": "dfgfdg",
+                    "address": "dfgfdgfd",
+                    "contact_name": "fdgfdgfdg",
+                    "contact_phone": "fdg",
+                    "founded_year": "2005",
+                    "employees": "6",
+                    "email": "admin@example.com",
+                    "website": "https://riobranco220residencialcury.bss.design/",
+                    "facebook": "https://www.facebook.com/robert.freitas.73",
+                    "instagram": "https://www.facebook.com/robert.freitas.73",
+                    "areas": "",
+                    "portfolio": "https://www.facebook.com/robert.freitas.73",
+                    "intro": "sdfdsfdsfdsf",
+                    "licenses": "sdfsdfdsfds",
+                    "reviews": "sdfdsfsdfsd"
+                },
+                "docs": {
+                    "ein_path": "ein/34f5201f79e24e33a3f72965ddfe381a_Cert_of_Ins_-_Mabel_Byakika-2.PDF",
+                    "w9_path": "w9/66db936b0fb14086a19d1a00ca3c0843_Cert_of_Ins_-_Mabel_Byakika-2.PDF",
+                    "coi_path": "coi/93b102ee5582464cbe2f92537b32164f_Cert_of_Ins_-_Mabel_Byakika-2.PDF",
+                    "coi_expiry": "2025-10-06"
+                },
+                "terms": {
+                    "tech": true,
+                    "mgmt": true,
+                    "behavior": true,
+                    "signed_at": "2025-10-22T14:53:55.141399"
+                },
+                "onboarding": {
+                    "step1": true,
+                    "step2": true,
+                    "step3": true
+                }
+            }
+        },
+        {
+            "id": "568d82a8-b004-46fe-9f46-5ac092f8ed55",
+            "email": "robertfreitasc@gmail.com",
+            "name": "Robert Freitas de Castro",
+            "role": "contractor",
+            "status": "approved",
+            "password_hash": "scrypt:32768:8:1$8hPHyHO0ZU3lNJ98$b4c8b0f69a40bfd0756cab9ffd4df144150d8e2ce862ed6ab9dd8124ff49a9c9e2923596bf6cc23d47a804c6f2dd3b7f63461766e624ed2efc2bfada63f0e41f",
+            "profile": {
+                "custom": {},
+                "basic": {},
+                "docs": {
+                    "ein_path": null,
+                    "w9_path": null,
+                    "coi_path": null,
+                    "coi_expiry": null
+                },
+                "terms": {
+                    "tech": false,
+                    "mgmt": false,
+                    "behavior": false,
+                    "signed_at": null
+                },
+                "onboarding": {
+                    "step1": false,
+                    "step2": false,
+                    "step3": false
+                }
+            }
+        },
+        {
+            "id": "eba91855-06ad-4c61-b6c1-48a3940dfe5b",
+            "email": "cscelularseguro@gmail.com",
+            "name": "ROBERT FREITAS DE CASTRO",
+            "role": "contractor",
+            "status": "approved",
+            "password_hash": "scrypt:32768:8:1$cppd4JLCAkoOKWHq$0c3efcd0385fe7bb2232a08df236bc233e245b53f4dcbdd6e27f0bbcec668d6b23eca487d7bc1d7c6f83eb220119a151624973b568a2d82530f4fde89f3255bb",
+            "profile": {
+                "custom": {},
+                "basic": {},
+                "docs": {
+                    "ein_path": null,
+                    "w9_path": null,
+                    "coi_path": null,
+                    "coi_expiry": null
+                },
+                "terms": {
+                    "tech": false,
+                    "mgmt": false,
+                    "behavior": false,
+                    "signed_at": null
+                },
+                "onboarding": {
+                    "step1": false,
+                    "step2": false,
+                    "step3": false
+                }
+            }
+        },
+        {
+            "id": "80d6648d-ceaf-431c-bfe6-7026422ff419",
+            "email": "ytlus2@hotmail.com",
+            "name": "RIO BRANCO",
+            "role": "subcontractor",
+            "status": "approved",
+            "password_hash": "scrypt:32768:8:1$CcMP6TAXHogTXuB2$b4ce20253cfd60d2d569042dbadc1334595c6e75dcfa68be09e0fb2f03d67ec148990d3f98dca1260129bbcce9dba430c051dd2c3e14459b52df6c6cf3e28f2f",
+            "profile": {
+                "custom": {},
+                "basic": {},
+                "docs": {
+                    "ein_path": null,
+                    "w9_path": null,
+                    "coi_path": null,
+                    "coi_expiry": null
+                },
+                "terms": {
+                    "tech": false,
+                    "mgmt": false,
+                    "behavior": false,
+                    "signed_at": null
+                },
+                "onboarding": {
+                    "step1": false,
+                    "step2": false,
+                    "step3": false
+                }
+            }
+        },
+        {
+            "id": "20d9e7e5-1f7d-4c13-b163-a621f246f2da",
+            "email": "inputbus.site@gmail.com",
+            "name": "Alexandre",
+            "role": "contractor",
+            "status": "approved",
+            "password_hash": "scrypt:32768:8:1$g0BVVRb0AaBmJesU$ad89e9c4b3208097751328a4c598c2ddf4dd88757d541c02d47afb84e812645fe7d517d9e11a08d9e59267163097c0e454aaf9894a8f98d00b2b9ca8a1c4d85f",
+            "profile": {
+                "custom": {},
+                "basic": {},
+                "docs": {
+                    "ein_path": null,
+                    "w9_path": null,
+                    "coi_path": null,
+                    "coi_expiry": null
+                },
+                "terms": {
+                    "tech": false,
+                    "mgmt": false,
+                    "behavior": false,
+                    "signed_at": null
+                },
+                "onboarding": {
+                    "step1": false,
+                    "step2": false,
+                    "step3": false
+                }
+            }
+        },
+        {
+            "id": "4f18f85f-8020-478c-ab79-189462c9c213",
+            "email": "fernando@gmail.com",
+            "name": "Fernando",
+            "role": "subcontractor",
+            "status": "approved",
+            "password_hash": "scrypt:32768:8:1$68E0W9DycCDZN93g$89173e625bbe488da4dde67be50ceafa1445c3e70dd2badb55cb19b3a4d99e119b0a992e0a5a19ea49574c5f5df4a47d1858616b7c12e41a6adb4cfe52e52fac",
+            "profile": {
+                "custom": {},
+                "basic": {},
+                "docs": {
+                    "ein_path": null,
+                    "w9_path": null,
+                    "coi_path": null,
+                    "coi_expiry": null
+                },
+                "terms": {
+                    "tech": false,
+                    "mgmt": false,
+                    "behavior": false,
+                    "signed_at": null
+                },
+                "onboarding": {
+                    "step1": false,
+                    "step2": false,
+                    "step3": false
+                }
+            }
+        },
+        {
+            "id": "14a7fbbe-3c69-4708-aeee-41e9b66d5142",
+            "email": "tayoliveirafreitas@gmail.com",
+            "name": "Tayná",
+            "role": "contractor",
+            "status": "approved",
+            "password_hash": "scrypt:32768:8:1$lZ6XRkAE7h2tNhOJ$50118493f7c91a35429852b3a92940612d475a4dde5e9373654e764acd5c4fc318b3f5f3bfe8db0598ec192e3d674e1104f1aabfa4b29e8f89f1a6019787c14d",
+            "profile": {
+                "custom": {},
+                "basic": {},
+                "docs": {
+                    "ein_path": null,
+                    "w9_path": null,
+                    "coi_path": "coi/1ac20800bbff4207a387262b81add916_Cert_of_Ins_-_Mabel_Byakika-2.PDF",
+                    "coi_expiry": "2025-10-06",
+                    "coi_sections": {
+                        "A": "2026-04-24",
+                        "B": "2026-04-30",
+                        "D": "2025-12-15"
+                    },
+                    "coi_sections_ui": [
+                        {
+                            "name": "COMMERCIAL GENERAL LIABILITY",
+                            "expires_at": "2026-04-24",
+                            "expires_at_str": "04/24/2026"
+                        },
+                        {
+                            "name": "AUTOMOBILE LIABILITY",
+                            "expires_at": "2026-04-30",
+                            "expires_at_str": "04/30/2026"
+                        },
+                        {
+                            "name": "UMBRELLA / EXCESS LIABILITY",
+                            "expires_at": "2025-12-15",
+                            "expires_at_str": "12/15/2025"
+                        }
+                    ]
+                },
+                "terms": {
+                    "tech": false,
+                    "mgmt": false,
+                    "behavior": false,
+                    "signed_at": null
+                },
+                "onboarding": {
+                    "step1": false,
+                    "step2": false,
+                    "step3": false
+                }
+            }
+        },
+        {
+            "id": "353722c9-545f-4b93-8cb5-a39fb88d5c5f",
+            "email": "joaoct@gmail.com",
+            "name": "Joao",
+            "role": "contractor",
+            "status": "approved",
+            "password_hash": "scrypt:32768:8:1$qCeHE2uL2OVyoCJp$bce473c52a37b834545ef7807194e12fbc28c3cba78b31a4736a98af5ec2f20402d1b36a9f564711d03242d676bb92bfe7f6686d24be81256ad3cb90bc345ae0",
+            "profile": {
+                "custom": {},
+                "basic": {},
+                "docs": {
+                    "ein_path": null,
+                    "w9_path": null,
+                    "coi_path": "coi/0aba666e7e374b839a0fc7962e66f48c_COI.pdf",
+                    "coi_expiry": "2025-10-06",
+                    "coi_sections": {
+                        "A": "2026-04-24",
+                        "B": "2026-04-30",
+                        "C": "2025-12-15"
+                    }
+                },
+                "terms": {
+                    "tech": false,
+                    "mgmt": false,
+                    "behavior": false,
+                    "signed_at": null
+                },
+                "onboarding": {
+                    "step1": false,
+                    "step2": false,
+                    "step3": false
+                }
+            }
+        },
+        {
+            "id": "448085c1-81fa-4378-8ed7-f08fd9623a05",
+            "email": "luiz@gmail.com",
+            "name": "luiz",
+            "role": "subcontractor",
+            "status": "approved",
+            "password_hash": "scrypt:32768:8:1$W5lpKqWdE0Bmbf28$b98e262a7636396de02457dab018685bd7c9d89855ef0a60410315f66aa6d9c0b700ded79b7414a483eecea0fea38759b7a7a072561b125504464c3420105741",
+            "profile": {
+                "custom": {},
+                "basic": {},
+                "docs": {
+                    "ein_path": null,
+                    "w9_path": null,
+                    "coi_path": null,
+                    "coi_expiry": null
+                },
+                "terms": {
+                    "tech": false,
+                    "mgmt": false,
+                    "behavior": false,
+                    "signed_at": null
+                },
+                "onboarding": {
+                    "step1": false,
+                    "step2": false,
+                    "step3": false
+                }
+            }
+        },
+        {
+            "id": "7cc9ee08-6555-4b83-9bd7-838561e974de",
+            "email": "robertfreitasteste@gmail.com",
+            "name": "FestinhasdaTay",
+            "role": "contractor",
+            "status": "approved",
+            "password_hash": "scrypt:32768:8:1$92Ks9bSawfrzoDlZ$92c49966022da0dca6dc5f15e22bbd7519a8ac4fdaad2b97e7da9ed35b2848268e85d391804956df1ce930edd3f5f5361f1f4c235481aba6f62fae97f76dfde2",
+            "profile": {
+                "custom": {},
+                "basic": {
+                    "company_name": "Robert Teste",
+                    "address": "Rua 22 Quadra 12",
+                    "contact_name": "Robethhashjsa",
+                    "contact_phone": "21987610587",
+                    "founded_year": "1998",
+                    "employees": "5",
+                    "email": "robertfreitasteste@gmail.com",
+                    "website": "https://www.gogle.com",
+                    "facebook": "https:www.facebook.com",
+                    "instagram": "https:www.facebook.com",
+                    "areas": "",
+                    "portfolio": "https:www.facebook.com",
+                    "intro": "https:www.facebook.com",
+                    "licenses": "https:www.facebook.com",
+                    "reviews": "https:www.facebook.com"
+                },
+                "docs": {
+                    "ein_path": "ein/dd6693f3af114af99842136e5ea543a7_4511197_1.pdf",
+                    "w9_path": "w9/aabec5f08a0b410ca7fa5811f76d396d_Acesso_dia_30-10.pdf",
+                    "coi_path": "coi/fb910e2db043443aa2bf456296bd3cc8_COI.pdf",
+                    "coi_expiry": "2025-10-06",
+                    "ein_expiry": "2027-10-31",
+                    "w9_expiry": "2026-10-31",
+                    "coi_sections": {
+                        "A": "2026-04-24",
+                        "B": "2026-04-30",
+                        "C": "2025-12-15"
+                    },
+                    "w9_upload_date": "2025-10-31",
+                    "ein_upload_date": "2025-10-31"
+                },
+                "terms": {
+                    "tech": true,
+                    "mgmt": true,
+                    "behavior": true,
+                    "signed_at": "2025-10-31T13:31:50.323783"
+                },
+                "onboarding": {
+                    "step1": true,
+                    "step2": true,
+                    "step3": true
+                }
+            }
+        },
+        {
+            "id": "337b7003-5b83-4e6d-a42b-b0bd1625721b",
+            "email": "fernandasilva@gmail.com",
+            "name": "Fernanda Silva",
+            "role": "contractor",
+            "status": "approved",
+            "password_hash": "scrypt:32768:8:1$JosvUDV3Pp1XsVun$aec32aacf280e701c8af459b2d7835f69951c43363691ce8c4e190e9833d260e163d0a26a1ad2421aaefbf1f26b9c77a922bf8a02b96d992f3282a986ad07f64",
+            "profile": {
+                "basic": {
+                    "company_name": "wedasdsa",
+                    "address": "asdasdsa",
+                    "contact_name": "asdsadsa",
+                    "contact_phone": "asdsadsa",
+                    "founded_year": "1998",
+                    "employees": "5",
+                    "email": "fernandasilva@gmail.com",
+                    "website": "https://www.com",
+                    "facebook": "https://www.com",
+                    "instagram": "https://www.com",
+                    "areas": "",
+                    "portfolio": "https://www.com",
+                    "intro": "https://",
+                    "licenses": "https://",
+                    "reviews": "https://"
+                },
+                "docs": {
+                    "ein_path": "ein/9cd92bdb97264ab785edaee291bcd34e_4511197_1.pdf",
+                    "w9_path": "w9/a86ee1601ea14984b0555530fa18c0f3_Acesso_dia_30-10.pdf",
+                    "coi_path": "coi/4adb5ee9526848018bb8db757bc27b78_COI.pdf",
+                    "coi_expiry": "2025-10-06",
+                    "ein_expiry": "2025-10-06",
+                    "w9_expiry": "2025-10-06",
+                    "coi_sections": {
+                        "A": "2026-04-24",
+                        "B": "2026-04-30",
+                        "C": "2025-12-15"
+                    }
+                },
+                "terms": {
+                    "tech": true,
+                    "mgmt": true,
+                    "behavior": true,
+                    "signed_at": "2025-10-21T19:11:38.957441"
+                },
+                "onboarding": {
+                    "step1": true,
+                    "step2": true,
+                    "step3": true
+                }
+            }
+        },
+        {
+            "id": "78bc01ad-df4c-41b1-b591-1917e49db13f",
+            "email": "jonasteste@gmail.com",
+            "name": "Jonas",
+            "role": "contractor",
+            "status": "approved",
+            "password_hash": "scrypt:32768:8:1$kqy4o5LsARDNBTjm$0ce3ecdf6223fe8b3d490be2599c14731ae476e0457e7aaab73dbd312ad9f1d79c9b46467bfc2050a37dadc3e9a49af0a5f4dc7863343fe4a6efe67702f70b31",
+            "profile": {
+                "basic": {},
+                "docs": {
+                    "ein_path": null,
+                    "w9_path": null,
+                    "coi_path": null,
+                    "coi_expiry": null
+                },
+                "terms": {
+                    "tech": false,
+                    "mgmt": false,
+                    "behavior": false,
+                    "signed_at": null
+                },
+                "onboarding": {
+                    "step1": false,
+                    "step2": false,
+                    "step3": false
+                }
+            }
+        },
+        {
+            "id": "baca2637-2353-4f80-ac42-39413783d418",
+            "email": "jociarateste@gmail.com",
+            "name": "Jociara",
+            "role": "contractor",
+            "status": "approved",
+            "password_hash": "scrypt:32768:8:1$l1uh9b9NWb75fkDK$5f11b019fd7759445de3fc307f3d1b65c9f2634c948e81ee4589b2dc029058cc8b0a9229e8f299354a779cd48610d12cc8f51ba84f95c36f8e9c7612b5eea482",
+            "profile": {
+                "basic": {},
+                "docs": {
+                    "ein_path": null,
+                    "w9_path": null,
+                    "coi_path": null,
+                    "coi_expiry": null
+                },
+                "terms": {
+                    "tech": true,
+                    "mgmt": true,
+                    "behavior": true,
+                    "signed_at": "2025-10-21T20:40:30.447908"
+                },
+                "onboarding": {
+                    "step1": false,
+                    "step2": false,
+                    "step3": true
+                }
+            }
+        },
+        {
+            "id": "db196d4f-badd-4619-a38e-625a595a5dc3",
+            "email": "joaodasilva@gmail.com",
+            "name": "joao da silva",
+            "role": "contractor",
+            "status": "approved",
+            "password_hash": "scrypt:32768:8:1$nIdSxSLegBXTFKcB$9228dd5bd81e993641a05bce90fd59f9d6e985089f298d81aed66a7dcb609e4f6e7660a5349976e0c856b669c1837f4a19876ad2c782cc930840faf5a55cfe40",
+            "profile": {
+                "basic": {},
+                "docs": {
+                    "ein_path": "ein/ce4c120a33e5439cb0161d75a199c8aa_Acesso_dia_21-10.pdf",
+                    "w9_path": "w9/dfb346e84313466cb663c9ba33ecc244_Aplicativo_Rall_Smart_Business_1_2.pdf",
+                    "coi_path": "coi/dacf0e73c572436f94b61605e3844def_Cert_of_Ins_-_Mabel_Byakika-2.PDF",
+                    "coi_sections": {
+                        "A": "2026-04-24",
+                        "B": "2026-04-30",
+                        "D": "2025-12-15"
+                    },
+                    "coi_expiry": "2025-10-06"
+                },
+                "terms": {},
+                "onboarding": {
+                    "step1": false,
+                    "step2": true,
+                    "step3": false
+                }
+            }
+        },
+        {
+            "id": "228cc17c-dcbe-4bbf-bdcd-0765659da8a3",
+            "email": "manufreitasc@gmail.com",
+            "name": "Manu",
+            "role": "admin",
+            "status": "approved",
+            "password_hash": "scrypt:32768:8:1$HOR5vVzYUq0HPGFv$05b36028c00237724aaefa7c3876bc45009679884d439ef3188ae3a909793314ed5abff6bea0fa991e693da9f71f02d224b2fede062346a68b1f5da5a3fa6556",
+            "profile": {
+                "basic": {},
+                "docs": {},
+                "terms": {},
+                "onboarding": {
+                    "step1": false,
+                    "step2": false,
+                    "step3": false
+                }
+            }
+        }
+    ],
+    "services": [
+        {
+            "id": "svc-1",
+            "title": "Nova Casa Reforma",
+            "description": "preciso de 2 pintores",
+            "category": "pintura",
+            "location": "Orlando",
+            "price_range": "0-3000",
+            "bids": [
+                {
+                    "value": 2950.0,
+                    "user_id": null
+                },
+                {
+                    "value": 2800.0,
+                    "user_id": null
+                },
+                {
+                    "value": 2500.0,
+                    "user_id": "4f18f85f-8020-478c-ab79-189462c9c213"
+                }
+            ],
+            "winner": 2500.0,
+            "owner_id": null,
+            "winner_user_id": "4f18f85f-8020-478c-ab79-189462c9c213"
+        },
+        {
+            "id": "svc-2",
+            "title": "Jardim Obra",
+            "description": "Preciso de 2 Jardineiros",
+            "category": "Jardim",
+            "location": "Califórnia",
+            "price_range": "0-2500",
+            "bids": [
+                {
+                    "value": 2800.0,
+                    "user_id": null
+                },
+                {
+                    "value": 3000.0,
+                    "user_id": null
+                },
+                {
+                    "value": 2350.0,
+                    "user_id": null
+                }
+            ],
+            "winner": 2350.0,
+            "owner_id": null,
+            "winner_user_id": null
+        },
+        {
+            "id": "svc-3",
+            "title": "Reforma",
+            "description": "preciso de 2 pintores",
+            "category": "pintura",
+            "location": "Orlando",
+            "price_range": "0-3000",
+            "bids": [
+                {
+                    "value": 2998.0,
+                    "user_id": null
+                }
+            ],
+            "winner": 2998.0,
+            "owner_id": null,
+            "winner_user_id": null
+        },
+        {
+            "id": "a7d26cdc-7b5c-4091-a835-c579d489512a",
+            "title": "dsds",
+            "description": "dsdsds",
+            "category": "dsdsds",
+            "location": "dsdsds",
+            "price_range": "sdsds",
+            "bids": [],
+            "winner": null,
+            "owner_id": "dcbd3a51-71e9-492f-ad0c-f72f7bcf547e",
+            "winner_user_id": null
+        },
+        {
+            "id": "ef1a315a-4f71-43e3-b51a-c54e3d0e46f8",
+            "title": "Pintura Casa",
+            "description": "Pintar quartos",
+            "category": "pintura",
+            "location": "Massachusetts ",
+            "price_range": "5000",
+            "bids": [
+                {
+                    "value": 4500.0,
+                    "user_id": null
+                }
+            ],
+            "winner": 4500.0,
+            "owner_id": "20d9e7e5-1f7d-4c13-b163-a621f246f2da",
+            "winner_user_id": null
+        },
+        {
+            "id": "f7f3e4ba-4947-43b7-b27a-cc108f0dd28e",
+            "title": "Festinha na mesa",
+            "description": "preciso de alguém para ajudar",
+            "category": "festa",
+            "location": "itaboraí",
+            "price_range": "100",
+            "bids": [
+                {
+                    "value": 90.0,
+                    "user_id": null
+                },
+                {
+                    "value": 89.0,
+                    "user_id": "448085c1-81fa-4378-8ed7-f08fd9623a05"
+                }
+            ],
+            "winner": 89.0,
+            "owner_id": "14a7fbbe-3c69-4708-aeee-41e9b66d5142",
+            "winner_user_id": "448085c1-81fa-4378-8ed7-f08fd9623a05"
+        },
+        {
+            "id": "1e10822b-f966-402a-ab79-153b00b2319c",
+            "title": "Serviço de Reforma",
+            "description": "ppppppp",
+            "category": "jkkjkjkjk",
+            "location": "Massachusetts ",
+            "price_range": "5000",
+            "bids": [
+                {
+                    "value": 4500.0,
+                    "user_id": null
+                },
+                {
+                    "value": 4300.0,
+                    "user_id": "448085c1-81fa-4378-8ed7-f08fd9623a05"
+                }
+            ],
+            "winner": 4300.0,
+            "owner_id": "353722c9-545f-4b93-8cb5-a39fb88d5c5f",
+            "winner_user_id": "448085c1-81fa-4378-8ed7-f08fd9623a05"
+        }
+    ],
+    "contractors": [],
+    "subcontractors": []
+}

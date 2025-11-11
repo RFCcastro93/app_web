@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Contractor — Etapa 1{% endblock %}
+{% block content %}
+<h2>🧩 Cadastro do Contractor — Etapa 1 (Dados básicos)</h2>
+<p class="muted">Preencha ao menos <b>Empresa</b>, <b>Contato</b>, <b>Telefone</b> e <b>E-mail</b>. Você poderá completar o restante depois.</p>
+
+<form method="POST" style="display:grid; gap:12px; max-width:900px; margin: 0 auto;">
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+    <input type="text" name="company_name" placeholder="Nome da Empresa *"
+           value="{{ user.profile.basic.company_name | default('') }}" required>
+    <input type="text" name="address" placeholder="Endereço"
+           value="{{ user.profile.basic.address | default('') }}">
+    <input type="text" name="contact_name" placeholder="Nome do Contato *"
+           value="{{ user.profile.basic.contact_name | default('') }}" required>
+    <input type="text" name="contact_phone" placeholder="Telefone do Contato *"
+           value="{{ user.profile.basic.contact_phone | default('') }}" required>
+    <input type="number" name="founded_year" placeholder="Ano de fundação"
+           value="{{ user.profile.basic.founded_year | default('') }}">
+    <input type="number" name="employees" placeholder="Número de empregados"
+           value="{{ user.profile.basic.employees | default('') }}">
+    <input type="email" name="email" placeholder="E-mail *"
+           value="{{ user.profile.basic.email | default('') }}" required>
+    <input type="url" name="website" placeholder="Site"
+           value="{{ user.profile.basic.website | default('') }}">
+    <input type="url" name="facebook" placeholder="Facebook"
+           value="{{ user.profile.basic.facebook | default('') }}">
+    <input type="url" name="instagram" placeholder="Instagram"
+           value="{{ user.profile.basic.instagram | default('') }}">
+  </div>
+
+  <textarea name="specialties" rows="3" placeholder="Área(s) de atuação e tempo de experiência (ex.: Pintura — 5 anos; Drywall — 3 anos)">{{ user.profile.basic.specialties | default('') }}</textarea>
+  <input type="url" name="portfolio" placeholder="Portfólio (link)"
+         value="{{ user.profile.basic.portfolio | default('') }}">
+  <textarea name="media_links" rows="2" placeholder="Vídeos e fotos (links separados por vírgula)">{{ user.profile.basic.media_links | default('') }}</textarea>
+  <textarea name="intro" rows="3" placeholder="Introdução da empresa">{{ user.profile.basic.intro | default('') }}</textarea>
+  <textarea name="licenses" rows="2" placeholder="Licenças (liste aqui)">{{ user.profile.basic.licenses | default('') }}</textarea>
+  <textarea name="reviews" rows="2" placeholder="Reviews / depoimentos (opcional)">{{ user.profile.basic.reviews | default('') }}</textarea>
+
+  <label style="display:flex; gap:8px; align-items:center;">
+    <input type="checkbox" name="tos_accepted" {% if user.profile.basic.tos_accepted %}checked{% endif %}>
+    Confirmo que li e aceito o <a href="#" onclick="alert('Esboço de Termo de Uso - substitua por sua página/arquivo.'); return false;">Termo de Uso</a>.
+  </label>
+
+  <div style="display:flex; gap:8px; flex-wrap:wrap; justify-content:space-between;">
+    <button type="submit">Salvar Etapa 1</button>
+    <a class="button" href="{{ url_for('contractor') }}">Voltar ao painel</a>
+    <a class="button" href="{{ url_for('contractor_step2') }}">Ir para Etapa 2</a>
+  </div>
+</form>
+{% endblock %}

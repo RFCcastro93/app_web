@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Entrar{% endblock %}
+
+{% block content %}
+  <h2>🔐 Login</h2>
+  <form method="POST" style="display:grid; gap:12px; max-width: 360px; margin: 0 auto;">
+    <input type="email" name="email" placeholder="E-mail" required>
+    <input type="password" name="password" placeholder="Senha" required>
+    <button type="submit">Entrar</button>
+  </form>
+
+  <p class="muted" style="text-align: center;">Não tem conta?</p>
+
+  <div class="menu" style="text-align: center;">
+    <a class="button sm" href="{{ url_for('register', role='contractor') }}">Sou Contractor</a>
+    <a class="button sm" href="{{ url_for('register', role='subcontractor') }}">Sou Subcontractor</a>
+  </div>
+{% endblock %}

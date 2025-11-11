@@ -1,0 +1,3 @@
+CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, password_hash TEXT, name TEXT, role TEXT, approved INTEGER);
+CREATE TABLE services (id INTEGER PRIMARY KEY AUTOINCREMENT, contractor_id INTEGER, title TEXT, description TEXT, category TEXT, location TEXT, price_min REAL, price_max REAL, status TEXT);
+CREATE TABLE bids (id INTEGER PRIMARY KEY AUTOINCREMENT, service_id INTEGER, subcontractor_id INTEGER, amount REAL, accepted INTEGER);

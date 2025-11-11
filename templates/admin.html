@@ -1,0 +1,367 @@
+{% extends "base.html" %}
+
+{% block title %}Admin{% endblock %}
+
+{% block content %}
+<h2>⚙️ Painel Administrativo</h2>
+
+<!-- KPIs -->
+<div class="cards">
+  <div class="card">Total de serviços: <b>{{ total_services }}</b></div>
+  <div class="card">Total de lances: <b>{{ total_bids }}</b></div>
+  <div class="card">Serviços com vencedor: <b>{{ winners }}</b></div>
+</div>
+
+<!-- ALERTAS DE EXPIRAÇÃO -->
+<div class="card">
+  <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center; justify-content:space-between;">
+    <h3 style="margin:0;">🔔 Expirações de Documentos</h3>
+    <div style="display:flex; gap:8px; flex-wrap:wrap;">
+      <span class="chip chip-warn">Vencendo (≤30d): {{ expiring_count }}</span>
+      <span class="chip chip-danger">Vencidos: {{ expired_count }}</span>
+    </div>
+  </div>
+
+  {% if expiring_alerts and expiring_alerts|length > 0 %}
+    <div class="table-responsive" style="margin-top:.6rem;">
+      <table class="stack">
+        <thead>
+          <tr>
+            <th>Usuário</th>
+            <th>E-mail</th>
+            <th>Papel</th>
+            <th>Documento</th>
+            <th>Status</th>
+            <th>Validade</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for a in expiring_alerts %}
+          <tr>
+            <td data-label="Usuário">{{ a.name }}</td>
+            <td data-label="E-mail">{{ a.email }}</td>
+            <td data-label="Papel">{{ 'Contractor' if a.role == 'contractor' else 'Subcontractor' }}</td>
+            <td data-label="Documento">{{ a.doc }}</td>
+            <td data-label="Status">
+              {% if a.status == 'expired' %}
+                <span class="chip chip-danger">Vencido</span>
+              {% else %}
+                <span class="chip chip-warn">Vencendo</span>
+              {% endif %}
+              <span class="muted">{{ a.label }}</span>
+            </td>
+            <td data-label="Validade">{{ a.date or '—' }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="muted" style="margin:.6rem 0 0;">Nenhuma expiração no horizonte (≤30 dias) e nenhum documento vencido.</p>
+  {% endif %}
+</div>
+
+<!-- PENDÊNCIAS / PERMISSÕES -->
+<h3 style="margin-top:1.6rem;">👥 Aprovação de Usuários</h3>
+{% if pending_users and pending_users|length > 0 %}
+  <div class="table-responsive">
+    <table class="stack">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>E-mail</th>
+          <th>Papel</th>
+          <th>Status</th>
+          <th style="min-width:210px; white-space:nowrap;">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for u in pending_users %}
+        <tr>
+          <td data-label="Nome">{{ u.name }}</td>
+          <td data-label="E-mail">{{ u.email }}</td>
+          <td data-label="Papel">{{ u.role }}</td>
+          <td data-label="Status">{{ u.status }}</td>
+          <td data-label="Ações" class="actions">
+            <div class="actions-wrap">
+              <form method="POST" action="{{ url_for('approve_user', user_id=u.id) }}">
+                <button type="submit" class="sm">Aprovar</button>
+              </form>
+              <form method="POST" action="{{ url_for('reject_user', user_id=u.id) }}">
+                <button type="submit" class="sm">Rejeitar</button>
+              </form>
+            </div>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% else %}
+  <p class="muted">Nenhum cadastro pendente.</p>
+{% endif %}
+
+<!-- CRIAR NOVO USUÁRIO (ADMIN) -->
+<h3 style="margin-top:1.6rem;">➕ Criar usuário (Admin)</h3>
+<form method="POST" action="{{ url_for('admin_create_user') }}">
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+    <input type="text" name="name" placeholder="Nome" required>
+    <input type="email" name="email" placeholder="E-mail" required>
+    <input type="password" name="password" placeholder="Senha" required>
+    <select name="role" required>
+      <option value="" disabled selected>Selecione o papel</option>
+      <option value="contractor">Contractor</option>
+      <option value="subcontractor">Subcontractor</option>
+      <option value="admin">Admin</option>
+    </select>
+  </div>
+  <div style="margin-top:.6rem;">
+    <button type="submit">Criar usuário</button>
+  </div>
+  <p class="muted" style="margin-top:.3rem;">Usuários criados aqui já entram <b>aprovados</b>.</p>
+</form>
+
+<!-- USUÁRIOS: STATUS & DOCUMENTOS -->
+<h3 style="margin-top:1.6rem;">📁 Usuários — status cadastral e documentos</h3>
+
+<!-- Contractors -->
+<h4 style="margin-top:1rem;">🏢 Contractors</h4>
+<div class="table-responsive">
+  <table class="stack">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>E-mail</th>
+        <th>Status</th>
+        <th>Progresso</th>
+        <th>EIN</th>
+        <th>W-9</th>
+        <th>COI</th>
+        <th>Validade EIN</th>
+        <th>Validade W-9</th>
+        <th>Validade COI</th>
+        <th>Etapas</th>
+        <th>Termo (Téc/Gest/Comp)</th>
+        <th>Assinado em</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for r in contractor_users %}
+      <tr>
+        <td data-label="Nome">{{ r.name }}</td>
+        <td data-label="E-mail">{{ r.email }}</td>
+        <td data-label="Status">{{ r.status }}</td>
+        <td data-label="Progresso">
+          <div class="bar"><div style="width: {{ r.percent }}%;"></div></div>
+          <small>&nbsp;{{ r.percent }}%</small>
+        </td>
+        <td data-label="EIN" class="filelink">{% if r.ein_url %}<a href="{{ r.ein_url }}" target="_blank">Abrir</a>{% else %}—{% endif %}</td>
+        <td data-label="W-9" class="filelink">{% if r.w9_url %}<a href="{{ r.w9_url }}" target="_blank">Abrir</a>{% else %}—{% endif %}</td>
+        <td data-label="COI" class="filelink">{% if r.coi_url %}<a href="{{ r.coi_url }}" target="_blank">Abrir</a>{% else %}—{% endif %}</td>
+
+        <td data-label="Validade EIN">
+          {% set st = r.ein_state %}
+          {% if st.state == 'expired' %}
+            <span class="chip-exp chip-danger">{{ r.ein_expiry or '—' }}</span> <small class="muted">{{ st.label }}</small>
+          {% elif st.state == 'warn' %}
+            <span class="chip-exp chip-warn">{{ r.ein_expiry or '—' }}</span> <small class="muted">{{ st.label }}</small>
+          {% elif st.state == 'ok' %}
+            <span class="chip-exp chip-ok">{{ r.ein_expiry or '—' }}</span>
+          {% else %}
+            —
+          {% endif %}
+        </td>
+
+        <td data-label="Validade W-9">
+          {% set st = r.w9_state %}
+          {% if st.state == 'expired' %}
+            <span class="chip-exp chip-danger">{{ r.w9_expiry or '—' }}</span> <small class="muted">{{ st.label }}</small>
+          {% elif st.state == 'warn' %}
+            <span class="chip-exp chip-warn">{{ r.w9_expiry or '—' }}</span> <small class="muted">{{ st.label }}</small>
+          {% elif st.state == 'ok' %}
+            <span class="chip-exp chip-ok">{{ r.w9_expiry or '—' }}</span>
+          {% else %}
+            —
+          {% endif %}
+        </td>
+
+        <td data-label="Validade COI">
+          {% set st = r.coi_state %}
+          {% if st.state == 'expired' %}
+            <span class="chip-exp chip-danger">{{ r.coi_expiry or '—' }}</span> <small class="muted">{{ st.label }}</small>
+          {% elif st.state == 'warn' %}
+            <span class="chip-exp chip-warn">{{ r.coi_expiry or '—' }}</span> <small class="muted">{{ st.label }}</small>
+          {% elif st.state == 'ok' %}
+            <span class="chip-exp chip-ok">{{ r.coi_expiry or '—' }}</span>
+          {% else %}
+            —
+          {% endif %}
+        </td>
+
+        <td data-label="Etapas">
+          <span class="pill {% if r.s1 %}pill-ok{% else %}pill-no{% endif %}">1</span>
+          <span class="pill {% if r.s2 %}pill-ok{% else %}pill-no{% endif %}">2</span>
+          <span class="pill {% if r.s3 %}pill-ok{% else %}pill-no{% endif %}">3</span>
+        </td>
+        <td data-label="Termo">
+          <span class="pill {% if r.terms.tech %}pill-ok{% else %}pill-no{% endif %}">Téc</span>
+          <span class="pill {% if r.terms.mgmt %}pill-ok{% else %}pill-no{% endif %}">Gest</span>
+          <span class="pill {% if r.terms.behavior %}pill-ok{% else %}pill-no{% endif %}">Comp</span>
+        </td>
+        <td data-label="Assinado em">{% if r.terms.signed_at %}{{ r.terms.signed_at.split('T')[0] }}{% else %}—{% endif %}</td>
+      </tr>
+    {% endfor %}
+    {% if contractor_users|length == 0 %}
+      <tr><td colspan="13" class="muted">Nenhum contractor encontrado.</td></tr>
+    {% endif %}
+    </tbody>
+  </table>
+</div>
+
+<!-- Subcontractors -->
+<h4 style="margin-top:1rem;">🧰 Subcontractors</h4>
+<div class="table-responsive">
+  <table class="stack">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>E-mail</th>
+        <th>Status</th>
+        <th>Progresso</th>
+        <th>EIN</th>
+        <th>W-9</th>
+        <th>COI</th>
+        <th>Validade EIN</th>
+        <th>Validade W-9</th>
+        <th>Validade COI</th>
+        <th>Etapas</th>
+        <th>Termo (Téc/Gest/Comp)</th>
+        <th>Assinado em</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for r in subcontractor_users %}
+      <tr>
+        <td data-label="Nome">{{ r.name }}</td>
+        <td data-label="E-mail">{{ r.email }}</td>
+        <td data-label="Status">{{ r.status }}</td>
+        <td data-label="Progresso">
+          <div class="bar"><div style="width: {{ r.percent }}%;"></div></div>
+          <small>&nbsp;{{ r.percent }}%</small>
+        </td>
+        <td data-label="EIN" class="filelink">{% if r.ein_url %}<a href="{{ r.ein_url }}" target="_blank">Abrir</a>{% else %}—{% endif %}</td>
+        <td data-label="W-9" class="filelink">{% if r.w9_url %}<a href="{{ r.w9_url }}" target="_blank">Abrir</a>{% else %}—{% endif %}</td>
+        <td data-label="COI" class="filelink">{% if r.coi_url %}<a href="{{ r.coi_url }}" target="_blank">Abrir</a>{% else %}—{% endif %}</td>
+
+        <td data-label="Validade EIN">
+          {% set st = r.ein_state %}
+          {% if st.state == 'expired' %}
+            <span class="chip-exp chip-danger">{{ r.ein_expiry or '—' }}</span> <small class="muted">{{ st.label }}</small>
+          {% elif st.state == 'warn' %}
+            <span class="chip-exp chip-warn">{{ r.ein_expiry or '—' }}</span> <small class="muted">{{ st.label }}</small>
+          {% elif st.state == 'ok' %}
+            <span class="chip-exp chip-ok">{{ r.ein_expiry or '—' }}</span>
+          {% else %}
+            —
+          {% endif %}
+        </td>
+
+        <td data-label="Validade W-9">
+          {% set st = r.w9_state %}
+          {% if st.state == 'expired' %}
+            <span class="chip-exp chip-danger">{{ r.w9_expiry or '—' }}</span> <small class="muted">{{ st.label }}</small>
+          {% elif st.state == 'warn' %}
+            <span class="chip-exp chip-warn">{{ r.w9_expiry or '—' }}</span> <small class="muted">{{ st.label }}</small>
+          {% elif st.state == 'ok' %}
+            <span class="chip-exp chip-ok">{{ r.w9_expiry or '—' }}</span>
+          {% else %}
+            —
+          {% endif %}
+        </td>
+
+        <td data-label="Validade COI">
+          {% set st = r.coi_state %}
+          {% if st.state == 'expired' %}
+            <span class="chip-exp chip-danger">{{ r.coi_expiry or '—' }}</span> <small class="muted">{{ st.label }}</small>
+          {% elif st.state == 'warn' %}
+            <span class="chip-exp chip-warn">{{ r.coi_expiry or '—' }}</span> <small class="muted">{{ st.label }}</small>
+          {% elif st.state == 'ok' %}
+            <span class="chip-exp chip-ok">{{ r.coi_expiry or '—' }}</span>
+          {% else %}
+            —
+          {% endif %}
+        </td>
+
+        <td data-label="Etapas">
+          <span class="pill {% if r.s1 %}pill-ok{% else %}pill-no{% endif %}">1</span>
+          <span class="pill {% if r.s2 %}pill-ok{% else %}pill-no{% endif %}">2</span>
+          <span class="pill {% if r.s3 %}pill-ok{% else %}pill-no{% endif %}">3</span>
+        </td>
+        <td data-label="Termo">
+          <span class="pill {% if r.terms.tech %}pill-ok{% else %}pill-no{% endif %}">Téc</span>
+          <span class="pill {% if r.terms.mgmt %}pill-ok{% else %}pill-no{% endif %}">Gest</span>
+          <span class="pill {% if r.terms.behavior %}pill-ok{% else %}pill-no{% endif %}">Comp</span>
+        </td>
+        <td data-label="Assinado em">{% if r.terms.signed_at %}{{ r.terms.signed_at.split('T')[0] }}{% else %}—{% endif %}</td>
+      </tr>
+    {% endfor %}
+    {% if subcontractor_users|length == 0 %}
+      <tr><td colspan="13" class="muted">Nenhum subcontractor encontrado.</td></tr>
+    {% endif %}
+    </tbody>
+  </table>
+</div>
+
+<!-- SERVIÇOS + LANCES -->
+<h3 style="margin-top:1.6rem;">🧾 Serviços</h3>
+{% for s in services %}
+  <div class="card" style="text-align:left">
+    <div style="display:flex; justify-content:space-between; gap:12px; align-items:center; flex-wrap:wrap;">
+      <div>
+        <b>{{ s.title }}</b> — {{ s.category }} • {{ s.location }}<br>
+        <span class="muted">Faixa: {{ s.price_range }}</span>
+      </div>
+      <div>
+        {% if s.winner %}
+          {% set w = users_index.get(s.winner_user_id) if s.winner_user_id else None %}
+          <span class="userpill" style="background:#dcfce7;color:#065f46;">
+            🏆 Melhor lance: <b>${{ '%.2f'|format(s.winner) }}</b>
+            {% if w %} • {{ w.name }} — {{ w.email }}{% endif %}
+          </span>
+        {% else %}
+          <span class="userpill" style="background:#e0f2fe;color:#075985;">Sem vencedor</span>
+        {% endif %}
+      </div>
+    </div>
+
+    {% if s.bids and s.bids|length > 0 %}
+      <div class="table-responsive" style="margin-top:10px;">
+        <table class="stack">
+          <thead>
+            <tr>
+              <th>Valor do lance</th>
+              <th>Subcontractor</th>
+              <th>Contato</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for b in s.bids|sort(attribute='value') %}
+            {% set user = users_index.get(b.user_id) if b.user_id else None %}
+            <tr {% if s.winner == b.value and s.winner_user_id == b.user_id %} style="background:#f0fdf4;" {% endif %}>
+              <td data-label="Valor do lance">${{ '%.2f'|format(b.value) }}</td>
+              <td data-label="Subcontractor">{{ user.name if user else '—' }}</td>
+              <td data-label="Contato">{{ user.email if user else '—' }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <p class="muted" style="margin-top:6px;">Nenhum lance enviado ainda.</p>
+    {% endif %}
+  </div>
+{% else %}
+  <p class="muted">Nenhum serviço publicado.</p>
+{% endfor %}
+
+{% endblock %}

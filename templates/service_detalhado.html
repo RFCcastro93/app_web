@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Detalhes do Serviço{% endblock %}
+
+{% block content %}
+  <h2>📋 Detalhes do Serviço</h2>
+
+  {% if service %}
+    <div class="card">
+      <h3>{{ service.title }}</h3>
+      <p><b>Descrição:</b> {{ service.description }}</p>
+      <p><b>Categoria:</b> {{ service.category }}</p>
+      <p><b>Localização:</b> {{ service.location }}</p>
+      <p><b>Faixa de preço:</b> {{ service.price_range }}</p>
+      <p><b>Status:</b> {% if service.winner %}Vencedor: 💰 {{ service.winner }}{% else %}Sem vencedor{% endif %}</p>
+
+      <h4>Lances:</h4>
+      {% if service.bids %}
+        <ul>
+          {% for bid in service.bids %}
+            <li>
+              <b>Lance: </b>💰 {{ bid.value }} — <b>Subcontractor:</b> {{ bid.user.name if bid.user else 'Desconhecido' }}
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="muted">Nenhum lance ainda.</p>
+      {% endif %}
+
+      {% if service.media_links %}
+        <h4>Mídias:</h4>
+        <ul>
+          {% for link in service.media_links.split(',') %}
+            <li><a href="{{ link }}" target="_blank">{{ link }}</a></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+  {% else %}
+    <p class="muted">Serviço não encontrado ou não disponível.</p>
+  {% endif %}
+{% endblock %}

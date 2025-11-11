@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Admin{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* Responsividade para o menu */
+    @media (max-width: 768px) {
+      nav > div {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: inline-block;
+        cursor: pointer;
+        color: #fff;
+        font-size: 1.5rem;
+      }
+
+      .menu.open {
+        display: block;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background: var(--primary);
+        padding: 1rem;
+        width: 100%;
+        text-align: right;
+      }
+
+      .menu.open a {
+        display: block;
+        margin: 10px 0;
+        color: #fff;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <h1>Serviço Direto</h1>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <div class="menu">
+      <a href="{{ url_for('index') }}">Início</a>
+      {% if current_user.is_authenticated %}
+        {% if current_user.role in ['contractor', 'admin'] %}
+          <a href="{{ url_for('contractor') }}">Contractor</a>
+        {% endif %}
+        {% if current_user.role in ['subcontractor', 'admin'] %}
+          <a href="{{ url_for('subcontractor') }}">Subcontractor</a>
+        {% endif %}
+        {% if current_user.role == 'admin' %}
+          <a href="{{ url_for('admin') }}">Admin</a>
+          <!-- Sino com badge -->
+          <a href="{{ url_for('admin') }}" class="bell" title="Cadastros pendentes">
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="bell-icon">
+              <path d="M12 22a2 2 0 0 0 2-2H10a2 2 0 0 0 2 2Zm6-6v-5a6 6 0 0 0-5-5.91V4a1 1 0 1 0-2 0v1.09A6 6 0 0 0 6 11v5l-1.29 1.29A1 1 0 0 0 5 19h14a1 1 0 0 0 .71-1.71Z"/>
+            </svg>
+            <span id="pendingBadge" class="badge" hidden>0</span>
+          </a>
+        {% endif %}
+        <span class="userpill">{{ current_user.name }} • {{ current_user.role }}</span>
+        <a href="{{ url_for('logout') }}">Sair</a>
+      {% else %}
+        <a href="{{ url_for('login') }}">Entrar</a>
+      {% endif %}
+    </div>
+  </nav>
+
+  <main>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flashwrap">
+          {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  {% if current_user.is_authenticated and current_user.role == 'admin' %}
+  <script>
+    async function updatePendingBadge() {
+      try {
+        const res = await fetch("{{ url_for('api_pending_count') }}", { cache: "no-store" });
+        if (!res.ok) return;
+        const { count } = await res.json();
+        const badge = document.getElementById("pendingBadge");
+        if (!badge) return;
+        if (count > 0) {
+          badge.textContent = count;
+          badge.hidden = false;
+          badge.classList.add("pulse");
+        } else {
+          badge.hidden = true;
+          badge.classList.remove("pulse");
+        }
+      } catch (e) { /* silencioso no MVP */ }
+    }
+    updatePendingBadge();
+    setInterval(updatePendingBadge, 10000); // 10s
+  </script>
+  {% endif %}
+
+  <script>
+    function toggleMenu() {
+      document.querySelector('.menu').classList.toggle('open');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% block title %}Contractor — Etapa 2{% endblock %}
+{% block content %}
+
+<h2>📎 Cadastro do Contractor — Etapa 2 (Documentos)</h2>
+<p class="muted">Envie seus documentos. Formatos aceitos: PDF, JPG, PNG, DOC, DOCX.</p>
+
+<form method="POST" enctype="multipart/form-data" style="display:grid; gap:12px; max-width:820px; margin: 0 auto;">
+
+  <!-- EIN -->
+  <div class="card" style="padding:12px;">
+    <b>EIN</b>
+    {% if docs.ein_path %}
+      <div class="muted">
+        Atual:
+        <a href="{{ url_for('serve_uploads', filename=docs.ein_path) }}" target="_blank" rel="noopener">abrir</a>
+        {% if docs.ein_expiry %} • Validade: {{ docs.ein_expiry }}{% endif %}
+      </div>
+    {% endif %}
+    <input type="file" name="ein_file" accept=".pdf,.png,.jpg,.jpeg,.doc,.docx" />
+  </div>
+
+  <!-- W-9 -->
+  <div class="card" style="padding:12px;">
+    <b>W-9</b>
+    {% if docs.w9_path %}
+      <div class="muted">
+        Atual:
+        <a href="{{ url_for('serve_uploads', filename=docs.w9_path) }}" target="_blank" rel="noopener">abrir</a>
+        {% if docs.w9_expiry %} • Validade: {{ docs.w9_expiry }}{% endif %}
+      </div>
+    {% endif %}
+    <input type="file" name="w9_file" accept=".pdf,.png,.jpg,.jpeg,.doc,.docx" />
+  </div>
+
+  <!-- COI -->
+  <div class="card" style="padding:12px;">
+    <b>COI (Liability / Workers’ Compensation)</b>
+    {% if docs.coi_path %}
+      <div class="muted">
+        Atual:
+        <a href="{{ url_for('serve_uploads', filename=docs.coi_path) }}" target="_blank" rel="noopener">abrir</a>
+        {% if docs.coi_expiry %} • Validade (geral): {{ docs.coi_expiry }}{% endif %}
+      </div>
+    {% endif %}
+    <input type="file" name="coi_file" accept=".pdf,.png,.jpg,.jpeg,.doc,.docx" />
+
+    <!-- Data manual opcional (backend lerá se não detectar automaticamente) -->
+    <div style="margin-top:8px;">
+      <label for="coi_expiry">Validade do COI (manual, opcional):</label>
+      <input id="coi_expiry" type="date" name="coi_expiry" value="{{ docs.coi_expiry | default('') }}">
+    </div>
+  </div>
+
+  <!-- Ações -->
+  <div style="display:flex; gap:8px; flex-wrap:wrap; justify-content:space-between;">
+    <button type="submit">Salvar Documentos</button>
+    <div style="display:flex; gap:8px;">
+      <a class="button" href="{{ url_for('contractor') }}">Voltar ao painel</a>
+      <a class="button" href="{{ url_for('contractor_step3') }}">Ir para Etapa 3</a>
+    </div>
+  </div>
+</form>
+
+{# -------------------- COI – Seções (A…E) -------------------- #}
+{% if coi_sections %}
+<div class="card" style="margin-top:1rem;">
+  <div class="card-body">
+    <h5 class="card-title">COI – Seções (A…E)</h5>
+    <p class="text-muted" style="margin-top:-.25rem;margin-bottom:.75rem;">
+      Cores por urgência: >60d <span class="badge bg-success">OK</span>,
+      ≤60d <span class="badge bg-primary">atenção</span>, ≤45d <span class="badge bg-info text-dark">atenção</span>,
+      ≤30/≤15d <span class="badge bg-warning text-dark">alerta</span>,
+      ≤5/0d <span class="badge bg-danger">crítico</span>.
+    </p>
+
+    <div class="table-responsive">
+      <table class="table align-middle">
+        <thead>
+          <tr>
+            <th style="width:80px;">Seção</th>
+            <th>Tipo (aprox.)</th>
+            <th style="width:180px;">Expira em</th>
+            <th style="width:200px;">Status</th>
+          </tr>
+        </thead>
+        <tbody id="coi-sections-body">
+          <!-- preenchido via JS abaixo -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+// Dados vindos do backend (YYYY-MM-DD por seção)
+const COI_SECTIONS = {{ coi_sections|tojson }};
+
+// Mapa "guess" do tipo por seção (para exibir)
+const SECTION_LABELS = {
+  A: "Commercial General Liability",
+  B: "Automobile Liability",
+  C: "Workers Comp / Employers Liability",
+  D: "Umbrella / Excess Liability",
+  E: "Property / Inland Marine"
+};
+
+function daysUntil(dateStr) {
+  // dateStr 'YYYY-MM-DD'
+  const d = new Date(dateStr + "T00:00:00");
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const diffMs = d - today;
+  return Math.floor(diffMs / 86400000);
+}
+
+function classForCOI(days) {
+  if (days <= 0) return {cls:"bg-danger", txt:"VENCIDO (0d)"};
+  if (days <= 5) return {cls:"bg-danger", txt:"≤5d"};
+  if (days <= 15) return {cls:"bg-warning text-dark", txt:"≤15d"};
+  if (days <= 30) return {cls:"bg-warning text-dark", txt:"≤30d"};
+  if (days <= 45) return {cls:"bg-info text-dark", txt:"≤45d"};
+  if (days <= 60) return {cls:"bg-primary", txt:"≤60d"};
+  return {cls:"bg-success", txt: `${days}d`};
+}
+
+(function renderCOISections(){
+  const tbody = document.getElementById("coi-sections-body");
+  tbody.innerHTML = "";
+
+  const entries = Object.entries(COI_SECTIONS)
+    .filter(([sec, d]) => d && typeof d === "string")
+    .sort((a,b)=> new Date(a[1]) - new Date(b[1])); // mais próximo primeiro
+
+  for (const [section, dateStr] of entries) {
+    const lbl = SECTION_LABELS[section] || "—";
+    const days = daysUntil(dateStr);
+    const badge = classForCOI(days);
+
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td><strong>${section}</strong></td>
+      <td>${lbl}</td>
+      <td>${new Date(dateStr + "T00:00:00").toLocaleDateString()}</td>
+      <td>
+        <span class="badge ${badge.cls}" style="font-size:.9rem;">${badge.txt}</span>
+        <small class="text-muted ms-2">(${days} dias)</small>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  }
+
+  if (entries.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="4" class="text-muted">Nenhuma seção identificada no COI enviado.</td></tr>`;
+  }
+})();
+</script>
+{% endif %}
+
+{% endblock %}

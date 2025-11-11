@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}Publicar Novo Serviço{% endblock %}
+
+{% block content %}
+<h1>📑 Publicar Novo Serviço</h1>
+<!-- Banner de Onboarding -->
+<div class="card onboard-card">
+  <div class="onboard-head">
+    <div>
+      <b>Status do seu cadastro</b> · 3 etapas
+      <span class="muted">({{ onboarding.percent }}%)</span>
+    </div>
+    <div class="onboard-steps">
+      <span class="pill {{ 'pill-ok' if onboarding.step1 else 'pill-no' }}">
+        {{ '✓' if onboarding.step1 else '•' }} Etapa 1
+      </span>
+      <span class="pill {{ 'pill-ok' if onboarding.step2 else 'pill-no' }}">
+        {{ '✓' if onboarding.step2 else '•' }} Etapa 2
+      </span>
+      <span class="pill {{ 'pill-ok' if onboarding.step3 else 'pill-no' }}">
+        {{ '✓' if onboarding.step3 else '•' }} Etapa 3
+      </span>
+    </div>
+  </div>
+
+  <!-- Barra de progresso -->
+  <div class="onboard-progress">
+    <div class="onboard-progress-bar" style="width: {{ onboarding.percent }}%;"></div>
+  </div>
+
+  <!-- Ações: mostrar só as etapas faltantes -->
+  <div class="onboard-actions">
+    {% if not onboarding.step1 %}
+      <a class="button sm" href="{{ url_for('contractor_step1') }}">Ir para Etapa 1</a>
+    {% endif %}
+    {% if not onboarding.step2 %}
+      <a class="button sm" href="{{ url_for('contractor_step2') }}">Ir para Etapa 2</a>
+    {% endif %}
+    {% if not onboarding.step3 %}
+      <a class="button sm" href="{{ url_for('contractor_step3') }}">Ir para Etapa 3</a>
+    {% endif %}
+  </div>
+
+  <!-- Avisos (se houver) -->
+  {% if onboarding.warnings and onboarding.warnings|length > 0 %}
+    <ul class="onboard-warnings">
+      {% for w in onboarding.warnings %}
+        <li>⚠️ {{ w }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  
+<!-- Exibindo status das etapas -->
+<div class="status-cadastro">
+  <p>Status do seu cadastro: <strong>3 etapas</strong> ({{ onboarding.percent }}%)</p>
+  <p class="steps">
+    <span class="step {{ 'completed' if onboarding.step1 else '' }}">Etapa 1 (Dados Básicos)</span> 
+    <span class="step {{ 'completed' if onboarding.step2 else '' }}">Etapa 2 (Documentos)</span>
+    <span class="step {{ 'completed' if onboarding.step3 else '' }}">Etapa 3 (Termo de Conduta)</span>
+  </p>
+  <p class="message">
+    <span class="warning" {% if not onboarding.step1 %} style="display: inline;" {% else %} style="display: none;" {% endif %}>⚠️ Complete a Etapa 1 (Dados Básicos).</span>
+    <span class="warning" {% if not onboarding.step2 %} style="display: inline;" {% else %} style="display: none;" {% endif %}>⚠️ Complete a Etapa 2 (Documentos).</span>
+    <span class="warning" {% if not onboarding.step3 %} style="display: inline;" {% else %} style="display: none;" {% endif %}>⚠️ Assine a Etapa 3 (Termo de Conduta).</span>
+  </p>
+  <div class="buttons">
+    <a href="{{ url_for('contractor_step1') }}" class="button {{ 'disabled' if onboarding.step1 }}">Ir para Etapa 1</a>
+    <a href="{{ url_for('contractor_step2') }}" class="button {{ 'disabled' if not onboarding.step1 }}">Ir para Etapa 2</a>
+    <a href="{{ url_for('contractor_step3') }}" class="button {{ 'disabled' if not onboarding.step2 }}">Ir para Etapa 3</a>
+  </div>
+</div>
+
+<!-- Formulário de Publicação -->
+<form method="POST">
+  <label for="title">Título do serviço</label>
+  <input type="text" name="title" id="title" required>
+
+  <label for="description">Descrição</label>
+ <textarea name="description" id="description" required style="width: 100%; height: 100px;"></textarea>
+
+  <label for="category">Categoria</label>
+  <input type="text" name="category" id="category" required>
+
+  <label for="location">Localização</label>
+  <input type="text" name="location" id="location" required>
+
+  <label for="price_range">Faixa de preço (ex: 1000-2000)</label>
+  <input type="text" name="price_range" id="price_range" required>
+
+  <button type="submit" class="button">Publicar</button>
+</form>
+
+{% endblock %}

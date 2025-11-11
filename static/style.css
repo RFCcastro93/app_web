@@ -1,0 +1,588 @@
+/* ---------- THEME TOKENS ---------- */
+:root {
+  --primary: #1e40af;
+  --secondary: #3b82f6;
+  --background: #f1f5f9;
+  --text: #1e293b;
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --danger: #dc2626;
+  --radius: 10px;
+}
+
+/* ---------- BASE ---------- */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--text);
+  font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---------- NAV ---------- */
+nav {
+  background: var(--primary);
+  color: #fff;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0,0,0,.1);
+}
+nav h1 { margin: 0; font-size: 1.1rem; font-weight: 700; letter-spacing: .2px; }
+nav a {
+  color: #fff;
+  margin: 0 .5rem;
+  text-decoration: none;
+  font-weight: 500;
+  opacity: .95;
+}
+nav a:hover { opacity: 1; text-decoration: underline; }
+.userpill {
+  background: rgba(255,255,255,.15);
+  padding: .35rem .6rem;
+  border-radius: 999px;
+  margin: 0 .4rem;
+}
+
+/* ---------- MAIN LAYOUT ---------- */
+main { padding: 2rem; max-width: 960px; margin: 0 auto; }
+h1, h2, h3 { color: var(--primary); margin-top: 0; }
+.menu { margin-top: 1.2rem; display: flex; gap: 12px; flex-wrap: wrap; }
+
+/* ---------- BUTTONS ---------- */
+.button, button {
+  display: inline-block;
+  background: var(--secondary);
+  color: #fff;
+  padding: .6rem 1.2rem;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform .15s ease, background .2s ease;
+}
+.button:hover, button:hover { background: var(--primary); transform: translateY(-1px); }
+.button.sm, button.sm { padding: .45rem .7rem; font-size: .9rem; border-radius: 8px; }
+
+/* ---------- FORMS ---------- */
+form {
+  background: #fff;
+  padding: 1.2rem;
+  border-radius: var(--radius);
+  box-shadow: 0 2px 5px rgba(0,0,0,.08);
+  margin-bottom: 1.5rem;
+}
+input, select {
+  display: block;
+  width: 100%;
+  margin-bottom: .8rem;
+  padding: .65rem;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius);
+  font-size: .95rem;
+  background: #fff;
+  color: var(--text);
+}
+input:focus, select:focus {
+  border-color: var(--secondary);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59,130,246,.15);
+}
+
+/* ---------- CARDS ---------- */
+.card {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: 0 1px 4px rgba(0,0,0,.08);
+  padding: 1rem;
+  margin: 1rem 0;
+}
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+
+/* ---------- TABLE ---------- */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;              /* faz scroll horizontal se precisar */
+  -webkit-overflow-scrolling: touch;
+  border-radius: var(--radius);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background: #fff;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+  table-layout: auto;            /* deixa as colunas mais naturais */
+}
+
+thead th {
+  background: var(--primary);
+  color: #fff;
+  padding: .75rem .85rem;
+  text-align: left;
+  white-space: nowrap;           /* NÃO quebrar títulos */
+  word-break: normal;
+}
+
+/*tbody td {
+  padding: .75rem .85rem;
+  border-bottom: 1px solid #e2e8f0;
+  word-break: break-word;        /* pode quebrar só os valores */
+}
+
+/* Colunas curtinhas (EIN / W-9 / COI / Validade) não quebram em desktop */
+th:nth-child(5), th:nth-child(6), th:nth-child(7), th:nth-child(8),
+td:nth-child(5), td:nth-child(6), td:nth-child(7), td:nth-child(8) {
+  white-space: nowrap;
+}
+
+/* Links de arquivo “Abrir” sem quebrar letrinha por letrinha */
+td.filelink a {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* Coluna de ações (se houver) alinhada à direita no desktop */
+td.actions > .actions-wrap {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+/* ---------- TABELA “STACKABLE” (empilha no mobile <= 960px) ---------- */
+@media (max-width: 960px) {
+  .table-responsive { overflow-x: visible; } /* empilha em vez de scrollbar */
+
+  table.stack {
+    border: 0;
+    box-shadow: none;
+    background: transparent;
+    border-radius: 0;
+  }
+  table.stack thead { display: none; }
+
+  table.stack tbody tr {
+    display: block;
+    margin: 12px 0;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  }
+  table.stack tbody td {
+    display: grid;
+    grid-template-columns: 140px 1fr; /* rótulo + valor */
+    gap: 8px;
+    padding: 10px 12px;
+    border-bottom: 1px solid #e2e8f0;
+    white-space: normal;  /* texto pode quebrar no mobile */
+  }
+  table.stack tbody td:last-child { border-bottom: 0; }
+  table.stack tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #475569;
+  }
+
+  /* Ações começam alinhadas à esquerda no mobile */
+  td.actions > .actions-wrap { justify-content: flex-start; }
+}
+
+/* Ajuste fino para telas muito pequenas */
+@media (max-width: 420px) {
+  table.stack tbody td { grid-template-columns: 120px 1fr; }
+}
+
+/* ---------- FLASH MESSAGES ---------- */
+.flashwrap { margin-bottom: 1rem; }
+.flash { padding: .75rem 1rem; border-radius: var(--radius); margin-bottom: .5rem; background: #e2e8f0; }
+.flash.success { background: #dcfce7; }
+.flash.info    { background: #e0f2fe; }
+.flash.warning { background: #fef3c7; }
+.flash.danger  { background: #fee2e2; }
+
+.muted { opacity: .8; font-size: .95rem; }
+
+/* ---------- BELL + BADGE ---------- */
+.bell {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px; height: 36px;
+  margin: 0 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.12);
+  text-decoration: none;
+}
+.bell:hover { background: rgba(255,255,255,.18); }
+.bell-icon { width: 20px; height: 20px; fill: #fff; opacity: .95; }
+
+.badge {
+  position: absolute;
+  top: -4px; right: -4px;
+  min-width: 18px; height: 18px;
+  padding: 0 5px;
+  background: var(--danger);
+  color: #fff; font-size: 12px; font-weight: 700;
+  border-radius: 999px;
+  display: inline-flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 0 2px rgba(30,64,175,1);
+}
+@keyframes pulseBadge {
+  0%   { transform: scale(1);   box-shadow: 0 0 0 0 rgba(220,38,38,.6); }
+  70%  { transform: scale(1.06); box-shadow: 0 0 0 8px rgba(220,38,38,0); }
+  100% { transform: scale(1);   box-shadow: 0 0 0 0 rgba(220,38,38,0); }
+}
+.badge.pulse { animation: pulseBadge 1.5s infinite; }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+  th, td { padding: .55rem; }
+  td.actions > .actions-wrap { justify-content: flex-start; }
+  .button.sm, button.sm { width: 48%; } /* dois por linha */
+  table { font-size: .95rem; }
+}
+/* ======= UTILIDADES DE RESPONSIVIDADE ======= */
+/* esconda colunas por breakpoint adicionando essas classes no <th>/<td> */
+@media (max-width: 1024px) { .hide-md { display: none !important; } }
+@media (max-width: 768px)  { .hide-sm { display: none !important; } }
+@media (max-width: 560px)  { .hide-xs { display: none !important; } }
+
+/* Barra de progresso compacta e fluida */
+.progress {
+  width: 100%;
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+}
+.progress > span {
+  display: block;
+  height: 100%;
+  width: var(--w, 0%);
+  background: var(--success);
+  border-radius: inherit;
+}
+
+/* ======= TABELAS “STACKABLE” (empilham no mobile) ======= */
+/* aplique na tabela a classe .stack (ex.: <table class="stack">) */
+@media (max-width: 768px) {
+  .table-responsive { overflow-x: visible; } /* não precisamos de scroll horizontal */
+
+  table.stack {
+    border: 0;
+    box-shadow: none;
+    background: transparent;
+  }
+  table.stack thead { display: none; }
+
+  table.stack tbody tr {
+    display: block;
+    background: #fff;
+    border-radius: var(--radius);
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+    margin: 10px 0;
+    padding: 4px 0;
+  }
+
+  table.stack tbody td {
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+    align-items: flex-start;
+    border: 0;
+    border-bottom: 1px solid #e5e7eb;
+    padding: .7rem .9rem;
+  }
+  table.stack tbody td:last-child { border-bottom: 0; }
+
+  /* rótulo do cabeçalho vira prefixo de cada célula */
+  table.stack tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--primary);
+    min-width: 42%;
+    padding-right: 10px;
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  /* alinhar ações no mobile */
+  td.actions > .actions-wrap { justify-content: flex-start; }
+
+  /* chips/etapas/termos cabem melhor */
+  .userpill, .chip {
+    display: inline-flex;
+    align-items: center;
+    padding: .25rem .5rem;
+    border-radius: 999px;
+    font-size: .85rem;
+    margin: 2px 4px 0 0;
+  }
+.status-cadastro {
+  background: #fff;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  border-radius: var(--radius);
+  box-shadow: 0 2px 5px rgba(0,0,0,.1);
+}
+
+.steps {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.step {
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  background-color: #e2e8f0;
+  font-weight: bold;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.step.completed {
+  background-color: #d1fae5; /* Verde claro para etapas completadas */
+}
+
+.warning {
+  color: #e11d48;
+}
+
+.buttons {
+  margin-top: 1rem;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.button.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .step {
+    font-size: 0.9rem;
+  }
+}
+/* ---------- Onboarding Banner ---------- */
+.onboard-card { padding: 1rem 1rem 1.1rem; }
+.onboard-head {
+  display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+  margin-bottom:.6rem;
+}
+.onboard-steps { display:flex; gap:6px; flex-wrap:wrap; }
+
+.pill {
+  display:inline-flex; align-items:center; gap:6px;
+  padding:.22rem .55rem; border-radius:999px; font-size:.85rem; font-weight:600;
+  border:1px solid transparent;
+}
+.pill-ok { background:#dcfce7; color:#065f46; border-color:#a7f3d0; }
+.pill-no { background:#fee2e2; color:#7f1d1d; border-color:#fecaca; }
+
+.onboard-progress {
+  width:100%; height:8px; border-radius:999px; background:#e5e7eb; overflow:hidden;
+}
+.onboard-progress-bar {
+  height:100%; background: linear-gradient(90deg, #3b82f6, #1e40af);
+  width:0; transition:width .35s ease; border-radius:inherit;
+}
+
+.onboard-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:.65rem; }
+.onboard-warnings { margin:.6rem 0 0; padding-left:1rem; color:#7c2d12; }
+.onboard-warnings li { margin:.15rem 0; }
+
+table th, table td {
+  word-break: normal;
+}
+
+/* permite quebrar somente quando necessário (linhas muito longas) */
+/*table tbody td {
+  overflow-wrap: anywhere; /* não quebra se houver espaços/pontos; só em último caso */
+}
+
+/* garante colunas mais confortáveis no desktop */
+table thead th:nth-child(1),
+table tbody td:nth-child(1) { /* Nome */
+  min-width: 180px;
+}
+
+table thead th:nth-child(2),
+table tbody td:nth-child(2) { /* E-mail */
+  min-width: 220px;
+}
+
+table thead th:nth-child(3),
+table tbody td:nth-child(3) { /* Status */
+  min-width: 110px;
+  white-space: nowrap; /* “approved” fica numa linha só */
+}
+
+/* já tínhamos nowrap para EIN/W-9/COI/Validade – mantemos */
+th:nth-child(5), th:nth-child(6), th:nth-child(7), th:nth-child(8),
+td:nth-child(5), td:nth-child(6), td:nth-child(7), td:nth-child(8) {
+  white-space: nowrap;
+}
+
+/* no modo stack (mobile) a gente volta tudo para quebrar normalmente */
+@media (max-width: 960px) {
+  table.stack tbody td {
+    white-space: normal;
+    word-break: normal;
+    overflow-wrap: anywhere;
+  }
+}
+/* ======== FIX FINAL PARA TABELA DO ADMIN ======== */
+
+/* 1) a tabela pode ocupar mais que 960px -> rola na horizontal */
+.table-responsive > table {
+  min-width: 1200px;            /* ajuste: 1200–1400 se quiser mais folga */
+  width: 100%;
+}
+
+/* 2) NÃO quebrar palavras por padrão */
+table th, table td {
+  word-break: normal !important;
+  overflow-wrap: normal !important;   /* nada de 'anywhere' */
+  white-space: normal;
+}
+
+/* 3) colunas 1–3 com larguras mínimas decentes */
+table thead th:nth-child(1),
+table tbody td:nth-child(1) {  /* Nome */
+  min-width: 180px;
+}
+table thead th:nth-child(2),
+table tbody td:nth-child(2) {  /* E-mail */
+  min-width: 220px;
+}
+table thead th:nth-child(3),
+table tbody td:nth-child(3) {  /* Status */
+  min-width: 110px;
+  white-space: nowrap;
+}
+
+/* 4) colunas estreitas sem quebra no desktop (EIN, W-9, COI, Validade) */
+th:nth-child(5), th:nth-child(6), th:nth-child(7), th:nth-child(8),
+td:nth-child(5), td:nth-child(6), td:nth-child(7), td:nth-child(8) {
+  white-space: nowrap;
+}
+
+/* 5) no modo empilhado (mobile), pode quebrar normalmente */
+@media (max-width: 960px) {
+  .table-responsive > table { min-width: 0; }   /* deixa o card ocupar 100% */
+  table.stack tbody td {
+    white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: break-word;  /* quebra só se realmente precisar */
+  }
+}
+/* 1) Cabeçalho fixo ao rolar (dentro do wrapper) */
+.table-responsive thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+/* 2) Linhas zebradas discretas */
+table tbody tr:nth-child(even) {
+  background: #f8fafc;
+}
+
+/* 3) Centralizar colunas curtinhas (EIN / W-9 / COI / Etapas) */
+table thead th:nth-child(5),
+table thead th:nth-child(6),
+table thead th:nth-child(7),
+table thead th:nth-child(9),
+table tbody td:nth-child(5),
+table tbody td:nth-child(6),
+table tbody td:nth-child(7),
+table tbody td:nth-child(9) {
+  text-align: center;
+}
+/* ===== Espaçamento mais confortável no conteúdo das células ===== */
+table th,
+table td {
+  padding: .9rem 1.1rem;     /* mais espaço lateral e vertical */
+  line-height: 1.35;         /* linhas quebradas ficam menos coladas */
+  vertical-align: middle;    /* alinha melhor textos e chips */
+}
+
+/* Deixa a 1ª e a última coluna com um pouquinho mais de “respiro” */
+table th:first-child,
+table td:first-child { padding-left: 1.2rem; }
+table th:last-child,
+table td:last-child  { padding-right: 1.2rem; }
+
+/* ===== Borda interna (grade) entre colunas ===== */
+table thead th + th,
+table tbody td  + td {
+  border-left: 1px solid #e2e8f0;   /* linha vertical discreta entre colunas */
+}
+
+/* Mantém a linha horizontal entre as linhas, mas remove na última */
+table tbody tr:last-child td { border-bottom: 0; }
+
+/* Cabeçalho “gruda” quando rola dentro do wrapper da tabela */
+.table-responsive thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+/* Zebrando linhas (opcional, mas ajuda a leitura) */
+table tbody tr:nth-child(even) {
+  background: #f8fafc;
+}
+
+/* ===== Mobile (tabela stack) — sem bordas verticais ===== */
+@media (max-width: 960px) {
+  table.stack tbody td { 
+    border-left: 0 !important;
+  }
+  table.stack tbody td + td {
+    border-left: 0 !important;
+  }
+}
+/* ---- Chips de expiração ---- */
+.chip, .chip-exp {
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:.25rem .55rem;
+  border-radius:999px;
+  font-size:.85rem;
+  font-weight:600;
+  border:1px solid transparent;
+  white-space:nowrap;
+}
+
+.chip-ok, .chip-exp.chip-ok {
+  background:#dcfce7; color:#065f46; border-color:#a7f3d0;
+}
+.chip-warn, .chip-exp.chip-warn {
+  background:#fff7ed; color:#9a3412; border-color:#fed7aa;
+}
+.chip-danger, .chip-exp.chip-danger {
+  background:#fee2e2; color:#7f1d1d; border-color:#fecaca;
+}
+
+/* Barra de progresso simples usada no admin (já existia mas garantimos aqui) */
+.bar { width: 120px; height: 8px; background: #e5e7eb; border-radius: 999px; overflow: hidden; display:inline-block; vertical-align:middle; }
+.bar > div { height:100%; background: linear-gradient(90deg, #3b82f6, #1e40af); }

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Contractor — Etapa 3{% endblock %}
+{% block content %}
+<h2>🖊️ Cadastro do Contractor — Etapa 3 (Termo de Conduta)</h2>
+<p class="muted">Marque as cláusulas, aceite o termo e assine.</p>
+
+<form method="POST" style="display:grid; gap:14px; max-width:760px; margin: 0 auto;">
+  <!-- Aspectos Técnicos -->
+  <div class="card">
+    <b>Aspectos Técnicos</b>
+    <label style="display:flex; gap:8px; align-items:center; margin-top:6px;">
+      <input type="checkbox" name="tech" {% if user.profile.terms.tech %}checked{% endif %}>
+      Cumprirei normas técnicas, segurança do trabalho e boas práticas de execução.
+    </label>
+  </div>
+
+  <!-- Gestão -->
+  <div class="card">
+    <b>Gestão</b>
+    <label style="display:flex; gap:8px; align-items:center; margin-top:6px;">
+      <input type="checkbox" name="mgmt" {% if user.profile.terms.mgmt %}checked{% endif %}>
+      Cumprirei prazos, comunicação, limpeza do canteiro e responsabilidade pelos colaboradores.
+    </label>
+  </div>
+
+  <!-- Comportamental -->
+  <div class="card">
+    <b>Comportamental</b>
+    <label style="display:flex; gap:8px; align-items:center; margin-top:6px;">
+      <input type="checkbox" name="behavior" {% if user.profile.terms.behavior %}checked{% endif %}>
+      Manterei postura profissional, respeito ao cliente e às comunidades locais.
+    </label>
+  </div>
+
+  <!-- Aceite e Assinatura -->
+  <div class="card">
+    <b>Aceite e Assinatura</b>
+    <label style="display:flex; gap:8px; align-items:center; margin-top:6px;">
+      <input type="checkbox" name="accepted" {% if user.profile.terms.accepted %}checked{% endif %}>
+      Li e aceito o Termo de Conduta.
+    </label>
+    <div style="display:grid; grid-template-columns: 1fr 200px; gap:12px; margin-top:8px;">
+      <input type="text" name="signature_name" placeholder="Assinatura (nome completo)"
+             value="{{ user.profile.terms.signature_name | default('') }}">
+      <input type="date" name="signature_date"
+             value="{{ user.profile.terms.signature_date | default('') }}">
+    </div>
+  </div>
+
+  <!-- Botões de Ação -->
+  <div style="display:flex; gap:8px; flex-wrap:wrap;">
+    <button type="submit">Assinar e Finalizar</button>
+    <a class="button" href="{{ url_for('contractor') }}">Voltar ao painel</a>
+  </div>
+</form>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Cadastro de Usuário{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <header class="text-center mb-5">
+      <h1 class="display-4">Cadastro - {{ role|capitalize }}</h1>
+      <p class="lead">Preencha os dados abaixo para criar sua conta.</p>
+    </header>
+
+    <form method="POST" class="form-group" style="max-width: 400px; margin: 0 auto;">
+      <input type="text" name="name" class="form-control mb-3" placeholder="Nome" required>
+      <input type="email" name="email" class="form-control mb-3" placeholder="E-mail" required>
+      <input type="password" name="password" class="form-control mb-3" placeholder="Senha" required>
+      <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
+    </form>
+
+    {% if role != 'admin' %}
+      <p class="text-center text-muted mt-3">Seu cadastro ficará <b>pendente</b> até aprovação do Admin.</p>
+    {% else %}
+      <p class="text-center text-muted mt-3">Admin é aprovado automaticamente (ajuste para produção).</p>
+    {% endif %}
+  </div>
+{% endblock %}
