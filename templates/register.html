@@ -4,8 +4,11 @@
 {% block content %}
   <div class="container">
     <header class="text-center mb-5">
+    <main style="display:grid; place-items:center;">
+    <div style="max-width:420px; text-align:center;">
       <h1 class="display-4">Cadastro - {{ role|capitalize }}</h1>
       <p class="lead">Preencha os dados abaixo para criar sua conta.</p>
+    </main>
     </header>
 
     <form method="POST" class="form-group" style="max-width: 400px; margin: 0 auto;">
@@ -16,6 +19,8 @@
     </form>
 
     {% if role != 'admin' %}
+  <main style="display:grid; place-items:center;">
+  <div style="max-width:420px; text-align:center;">
       <p class="text-center text-muted mt-3">Seu cadastro ficará <b>pendente</b> até aprovação do Admin.</p>
     {% else %}
       <p class="text-center text-muted mt-3">Admin é aprovado automaticamente (ajuste para produção).</p>
