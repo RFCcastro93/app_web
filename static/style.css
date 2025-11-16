@@ -786,3 +786,190 @@ table tbody tr:nth-child(even) {
     margin-left: auto;
     margin-right: auto;
 }
+
+/* ---------- AUTH PAGES (Login/Registro) - FORÇANDO LARGURA TOTAL ---------- */
+.auth-page-wrapper {
+    /* 1. Ocupa 100% da altura da tela (menos a altura do nav, que é ~60px) */
+    min-height: calc(100vh - 60px); 
+    
+    /* 2. Centraliza o cartão no meio da tela */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    
+    /* 3. Fundo Azul (Usando os tokens) */
+    background: linear-gradient(135deg, #1f3d8a 0%, var(--primary) 100%); 
+
+    /* 4. AÇÃO DE QUEBRA DE CONTAINER (100% Largura) */
+    width: 100vw; 
+    position: relative;
+    margin: -35px;
+    left: 50%;
+    margin-left: -50vw;
+    box-sizing: border-box; 
+}
+
+/* Link Voltar para Home */
+.back-to-home {
+    position: fixed; /* Fixado para aparecer na borda da tela */
+    top: 20px;
+    left: 20px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s ease;
+    z-index: 20;
+}
+.back-to-home:hover {
+    color: var(--secondary);
+}
+
+/* Cartão Principal do Formulário */
+.auth-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: var(--radius);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px; /* Largura máxima do cartão */
+    text-align: center;
+    position: relative;
+    margin: auto; /* Garante que fique centralizado no wrapper */
+}
+
+.auth-card-title {
+    color: var(--text);
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.auth-card-subtitle {
+    color: #64748b;
+    font-size: 0.95rem;
+    margin-bottom: 25px;
+}
+
+/* Abas de Navegação (Entrar/Cadastrar) */
+.auth-tabs {
+    display: flex;
+    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 25px;
+}
+
+.auth-tab {
+    flex: 1;
+    padding: 10px 0;
+    text-decoration: none;
+    color: #64748b;
+    font-weight: 600;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.auth-tab:hover {
+    color: var(--primary);
+}
+
+.auth-tab.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+}
+
+/* Formulário e Campos */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+}
+
+.input-field {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    color: var(--text);
+    background-color: var(--background); 
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-field:focus {
+    border-color: var(--secondary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59,130,246,.15);
+}
+
+.auth-button {
+    background: var(--primary);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: var(--radius);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-top: 10px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.auth-button:hover {
+    background: var(--secondary);
+}
+
+.pending-message {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-top: 25px;
+}
+
+.pending-message strong {
+    color: var(--warning); 
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 500px) {
+    .auth-card {
+        padding: 20px;
+    }
+    .auth-card-title {
+        font-size: 1.5rem;
+    }
+    .back-to-home {
+        font-size: 0.9rem;
+    }
+}
+/* --- LOGIN/AUTH CSS (Complementar) --- */
+
+.forgot-password {
+    display: block;
+    text-align: right;
+    font-size: 0.9rem;
+    color: #64748b;
+    text-decoration: none;
+    margin-top: -10px; /* Alinha com o formulário */
+}
+.forgot-password:hover {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+/* Estilo para botões secundários abaixo do formulário, se for usar */
+.secondary-auth-button {
+    background: #f1f5f9;
+    color: var(--text);
+    border: 1px solid #e2e8f0;
+    font-weight: 600;
+    padding: 8px 15px;
+    margin: 5px;
+    transition: background-color 0.2s ease;
+}
+
+.secondary-auth-button:hover {
+    background: #e2e8f0;
+}
