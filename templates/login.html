@@ -1,25 +1,35 @@
 {% extends "base.html" %}
-{% block title %}Entrar{% endblock %}
+
+{% block title %}Entrar na BidConnect{% endblock %}
 
 {% block content %}
-<main style="display:grid; place-items:center;">
-<div style="width:100%; max-width:420px; text-align:center;">
-<h2>🔐 Login</h2>
-</main>
+<div class="auth-page-wrapper">
+    <a href="{{ url_for('index') }}" class="back-to-home">← Voltar para home</a>
 
-<form method="POST" style="display:grid; gap:12px; max-width: 360px; margin: 0 auto;">
-    <input type="email" name="email" placeholder="E-mail" required>
-    <input type="password" name="password" placeholder="Senha" required>
-    <button type="submit">Entrar</button>
-  </form>
+    <div class="auth-card">
+        <h2 class="auth-card-title">Rall Smart Business</h2>
+        <p class="auth-card-subtitle">Entre na sua conta para continuar</p>
 
-  <p class="muted" style="text-align: center;">Não tem conta?</p>
+        <div class="auth-tabs">
+            <a href="{{ url_for('login') }}" class="auth-tab active">Entrar</a>
+            {# O link de cadastro precisa de um "role" padrão para evitar o BuildError, 
+               mas o usuário pode mudar no dropdown da página de registro. #}
+            <a href="{{ url_for('register', role='contractor') }}" class="auth-tab">Cadastrar</a>
+        </div>
 
-  
-<main style="display:grid; place-items:center;">
-  <div style="max-width:420px; text-align:center;">
-  <div class="menu" style="text-align: center;">
-    <a class="button sm" href="{{ url_for('register', role='contractor') }}">Sou Contractor</a>
-    <a class="button sm" href="{{ url_for('register', role='subcontractor') }}">Sou Subcontractor</a>
-  </div>
+        {# Formulário de Login: Usa a classe auth-form e input-field #}
+        <form method="POST" class="auth-form">
+            <input type="email" name="email" id="email" class="input-field" placeholder="E-mail" required>
+            
+            <input type="password" name="password" id="password" class="input-field" placeholder="Senha" required>
+            
+            <button type="submit" class="button auth-button">Entrar</button>
+            
+            <a href="#" class="forgot-password">Esqueceu a senha?</a>
+            <a href="{{ url_for('register', role='contractor') }}">Sou Contractor</a>
+            <a href="{{ url_for('register', role='subcontractor') }}">Sou Subcontractor</a>
+        </form>
+
+        </div>
+</div>
 {% endblock %}
