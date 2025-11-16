@@ -1,16 +1,71 @@
 {% extends "base.html" %}
 
-{% block title %}Início{% endblock %}
+{% block title %}Rall Smart Business{% endblock %}
+
+{#
+    A seção HERO SECTION deve ser colocada FORA do bloco 'content' 
+    se o 'base.html' permitir que ela ocupe 100% da largura da tela, 
+    sem ser limitada pelo 'max-width: 960px' do elemento <main>.
+    
+    Se seu 'base.html' envolve TUDO em <main>, você pode colocar esta seção DENTRO do 'block content'.
+    Vou assumir que ela vai DENTRO, forçando o 100% de largura.
+#}
 
 {% block content %}
-<h1>📝 MVP Platform funcionando!</h1>
-<p>Selecione o perfil abaixo para testar:</p>
 
-<div class="menu">
-  <a class="button" href="{{ url_for('register', role='contractor') }}">Sou Contractor</a>
-  <a class="button" href="{{ url_for('register', role='subcontractor') }}">Sou Subcontractor</a>
-  <a class="button" href="{{ url_for('admin') }}">Painel Administrativo</a>
-  <a class="button" href="{{ url_for('login') }}">Entrar</a>
-</div>
+    
+    <section class="hero-landing full-width-section">
+        <h1>Conecte Contractors e Subcontractors <br><span class="highlight">através de Oportunidades On-line</span></h1>
+        <p>Publique serviços, receba lances competitivos e encontre os melhores profissionais para seu projeto</p>
+        
+        <div class="hero-actions">
+            {# Botão Principal: Criar conta como Contractor (Assumindo que é o foco inicial) #}
+            <a class="button main-cta-button" href="{{ url_for('register', role='contractor') }}">Começar Agora →</a>
+            
+            {# Botão Secundário: Redireciona para o login/seleção de perfil, ou uma página de demonstração #}
+            <a class="button secondary-cta-button" href="{{ url_for('login') }}">Entrar</a>
+        </div>
+    </section>
+
+    <section class="features-section full-width-section">
+        <h2>Como Funciona</h2>
+        <p class="subtitle">Uma plataforma simples e eficiente para conectar quem precisa com quem faz</p>
+        
+        <div class="features-container">
+            
+            <div class="feature-item">
+                <div class="feature-icon-wrapper"><i class="fas fa-user-plus"></i></div>
+                <h3>Cadastro Simples</h3>
+                <p>Crie sua conta como Contractor ou Subcontractor em minutos.</p>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon-wrapper"><i class="fas fa-hammer"></i></div>
+                <h3>Publique Serviços</h3>
+                <p>Contractors publicam serviços com descrição, localização e faixa de preço.</p>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon-wrapper"><i class="fas fa-money-bill-wave"></i></div>
+                <h3>Lances Competitivos</h3>
+                <p>Subcontractors dão lances de menor valor; você escolhe o melhor.</p>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon-wrapper"><i class="fas fa-lock"></i></div>
+                <h3>Seguro e Confiável</h3>
+                <p>Sistema de aprovação e verificação garante qualidade e segurança.</p>
+            </div>
+            
+        </div>
+    </section>
+    
+    <section class="cta-banner full-width-section">
+        <h2>Pronto para começar?</h2>
+        <p>Junte-se a centenas de profissionais que já estão usando nossa plataforma</p>
+        
+        {# Botão principal aqui usa a mesma URL do botão "Começar Agora" #}
+        <a class="button" href="{{ url_for('register', role='contractor') }}">Criar Conta Grátis →</a>
+    </section>
 
 {% endblock %}
