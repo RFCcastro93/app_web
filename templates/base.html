@@ -42,7 +42,7 @@
 </head>
 <body>
   <nav>
-    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <div class="menu-toggle" onclick="toggleMenu()"></div>
     <div class="menu">
       <a href="{{ url_for('index') }}">Início</a>
       {% if current_user.is_authenticated %}
