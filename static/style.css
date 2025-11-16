@@ -54,7 +54,7 @@ nav a:hover { opacity: 1; text-decoration: underline; }
 /* ---------- MAIN LAYOUT ---------- */
 main { padding: 2rem; max-width: 960px; margin: 0 auto; }
 h1, h2, h3 { color: var(--primary); margin-top: 0; }
-.menu { margin-top: 1.2rem; display: flex; gap: 12px; flex-wrap: wrap; }
+.menu { margin-top: 10px; display: flex; gap: 12px; flex-wrap: wrap; }
 
 /* ---------- BUTTONS ---------- */
 .button, button {
@@ -586,3 +586,203 @@ table tbody tr:nth-child(even) {
 /* Barra de progresso simples usada no admin (já existia mas garantimos aqui) */
 .bar { width: 120px; height: 8px; background: #e5e7eb; border-radius: 999px; overflow: hidden; display:inline-block; vertical-align:middle; }
 .bar > div { height:100%; background: linear-gradient(90deg, #3b82f6, #1e40af); }
+
+/* ---------- 1. HERO SECTION (Landing Page: Banner Principal) ---------- */
+.hero-landing {
+    /* Usa os tokens com um gradiente sutil para efeito visual */
+    background: linear-gradient(135deg, #1f3d8a 0%, var(--primary) 100%); 
+    color: #fff;
+    padding: 100px 20px; /* Padding alto para destaque */
+    text-align: center;
+    margin: -35px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.hero-landing h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    color: #fff; /* Título principal sempre branco */
+}
+
+/* Destaque para o subtítulo dentro do H1 (ex: "através de Leilão Reverso") */
+.hero-landing h1 .highlight {
+    color: var(--secondary); /* Usa o azul mais claro */
+    font-weight: 800;
+}
+
+.hero-landing p {
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 30px auto;
+    opacity: 0.9;
+}
+
+/* Agrupamento de botões */
+.hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* Botão principal (use a classe .button) */
+.hero-actions .main-cta-button {
+    background: var(--secondary); 
+    border: 2px solid var(--secondary);
+}
+
+/* Botão secundário (o branco/transparente) */
+.hero-actions .secondary-cta-button {
+    background: rgba(255,255,255,0.9);
+    color: var(--primary); 
+    border: 2px solid #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.hero-actions .secondary-cta-button:hover {
+    background: #fff;
+    transform: translateY(-2px);
+    color: var(--primary);
+}
+
+
+/* Responsividade do Hero */
+@media (max-width: 900px) {
+    .hero-landing { padding: 80px 15px; }
+    .hero-landing h1 { font-size: 2.2rem; }
+}
+@media (max-width: 500px) {
+    .hero-actions { flex-direction: column; align-items: center; }
+    .hero-actions .button { width: 100%; max-width: 250px; }
+}
+
+/* ---------- 2. FEATURES SECTION (Como Funciona) ---------- */
+.features-section {
+    padding: 80px 20px;
+    text-align: center;
+    background: #fff; 
+}
+
+.features-section h2 {
+    font-size: 2rem;
+    color: var(--text);
+    margin-bottom: 5px;
+}
+
+.features-section .subtitle {
+    font-size: 1.05rem;
+    color: #64748b; /* Cor de cinza mais escura que o background */
+    margin-bottom: 40px;
+}
+
+/* Container que divide em 4 colunas */
+.features-container {
+    display: grid;
+    /* Adapta a largura do MAIN, mas centraliza no centro da tela */
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+    max-width: 1200px; /* Largura maior que o MAIN, mas não exagerada */
+    margin: 0 auto;
+}
+
+.feature-item {
+    padding: 20px;
+    text-align: center;
+}
+
+/* Ícone com Borda Circular */
+.feature-icon-wrapper {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid; 
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+/* Cores dos Ícones */
+.feature-item:nth-child(1) .feature-icon-wrapper { border-color: var(--primary); color: var(--primary); }
+.feature-item:nth-child(2) .feature-icon-wrapper { border-color: var(--success); color: var(--success); }
+.feature-item:nth-child(3) .feature-icon-wrapper { border-color: var(--secondary); color: var(--secondary); }
+.feature-item:nth-child(4) .feature-icon-wrapper { border-color: var(--warning); color: var(--warning); }
+
+.feature-icon-wrapper i {
+    font-size: 26px;
+}
+
+.feature-item h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+}
+
+.feature-item p {
+    font-size: 0.95rem;
+    color: #64748b;
+}
+
+/* ---------- 3. CTA BANNER INFERIOR (Pronto para Começar?) ---------- */
+.cta-banner {
+    background-color: var(--secondary); 
+    color: #fff;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.cta-banner h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #fff; 
+}
+
+.cta-banner p {
+    font-size: 1.05rem;
+    max-width: 700px;
+    margin: 0 auto 20px auto;
+    opacity: 0.95;
+}
+
+/* Adaptação do botão de "Criar Conta Grátis" */
+.cta-banner .button {
+    background: #fff; 
+    color: var(--secondary); 
+    font-size: 1.1rem;
+    padding: 0.75rem 1.8rem;
+    /* Ajuste o hover para ser consistente com os outros botões */
+    transition: all .2s ease;
+}
+
+.cta-banner .button:hover {
+    background: var(--primary); 
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* --- QUEBRA O CONTAINER: Garante 100% da largura --- */
+.full-width-section {
+    /* 1. Ocupa 100% da largura do contêiner PAI */
+    width: 100vw; 
+    
+    /* 2. Move para a esquerda até a borda da tela */
+    position: relative;
+    left: 50%;
+    
+    /* 3. Centraliza o elemento no centro exato da tela */
+    margin-left: -50vw; 
+    
+    /* 4. Garante que o conteúdo DENTRO seja centralizado (se necessário) */
+    box-sizing: border-box;
+}
+
+/* Garante que o conteúdo interno do banner não fique esticado */
+.full-width-section h1,
+.full-width-section p {
+    max-width: 960px; /* Usa a mesma largura máxima do seu <main> */
+    margin-left: auto;
+    margin-right: auto;
+}
