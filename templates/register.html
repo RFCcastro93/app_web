@@ -1,29 +1,53 @@
 {% extends "base.html" %}
-{% block title %}Cadastro de Usuário{% endblock %}
+
+{% block title %}Cadastro{% endblock %}
 
 {% block content %}
-  <div class="container">
-    <header class="text-center mb-5">
-    <main style="display:grid; place-items:center;">
-    <div style="max-width:420px; text-align:center;">
-      <h1 class="display-4">Cadastro - {{ role|capitalize }}</h1>
-      <p class="lead">Preencha os dados abaixo para criar sua conta.</p>
-    </main>
-    </header>
+<div class="auth-page-wrapper">
+    <a href="{{ url_for('index') }}" class="back-to-home">← Voltar para home</a>
 
-    <form method="POST" class="form-group" style="max-width: 400px; margin: 0 auto;">
-      <input type="text" name="name" class="form-control mb-3" placeholder="Nome" required>
-      <input type="email" name="email" class="form-control mb-3" placeholder="E-mail" required>
-      <input type="password" name="password" class="form-control mb-3" placeholder="Senha" required>
-      <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
-    </form>
+    <div class="auth-card">
+        <h2 class="auth-card-title">Cadastro</h2>
+        <p class="auth-card-subtitle">Selecione seu tipo de conta e preencha os dados abaixo.</p>
 
-    {% if role != 'admin' %}
-  <main style="display:grid; place-items:center;">
-  <div style="max-width:420px; text-align:center;">
-      <p class="text-center text-muted mt-3">Seu cadastro ficará <b>pendente</b> até aprovação do Admin.</p>
-    {% else %}
-      <p class="text-center text-muted mt-3">Admin é aprovado automaticamente (ajuste para produção).</p>
-    {% endif %}
-  </div>
+        <div class="auth-tabs">
+            <a href="{{ url_for('login') }}" class="auth-tab">Entrar</a>
+            <a href="{{ url_for('register', role=role) }}" class="auth-tab active">Cadastrar</a> 
+        </div>
+
+        {# Formulário de Registro #}
+        <form method="POST" class="auth-form">
+            <input type="text" name="name" id="name" class="input-field" placeholder="Nome" required>
+            
+            <input type="email" name="email" id="email" class="input-field" placeholder="E-mail" required>
+            
+            <input type="password" name="password" id="password" class="input-field" placeholder="Senha" required>
+            
+            <label for="role" class="input-label">Tipo de Conta</label>
+            <select name="role" id="role" class="input-field select-field" required>
+                <option value="contractor" {% if role == 'contractor' %}selected{% endif %}>
+                    Contractor (Empreiteiro)
+                </option>
+                <option value="subcontractor" {% if role == 'subcontractor' %}selected{% endif %}>
+                    Subcontractor (Subempreiteiro)
+                </option>
+                {# Opção Admin desabilitada para usuários normais #}
+                {% if role == 'admin' %}
+                    <option value="admin" selected>Admin (Apenas para Dev)</option>
+                {% endif %}
+            </select>
+            
+            <button type="submit" class="button auth-button">
+                Cadastrar
+            </button>
+        </form>
+
+        {# Mensagem de Pendência #}
+        {% if role != 'admin' %}
+            <p class="pending-message">Seu cadastro ficará **pendente** até aprovação do Admin.</p>
+        {% else %}
+            <p class="pending-message">Admin é aprovado automaticamente (ajuste para produção).</p>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}
